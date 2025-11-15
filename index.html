@@ -125,18 +125,34 @@
     }
   });
 
-  // ALT + Y – cycle year
-  document.addEventListener('keydown', function (e) {
-    if (e.altKey && e.key.toLowerCase() === 'y') {
-      const yearSelect = document.getElementById('yearSelect');
-      if (!yearSelect) return;
+document.addEventListener('keydown', function (e) {
+  if (!e.altKey || e.key.toLowerCase() !== 'y') return;
 
-      const currentIndex = yearSelect.selectedIndex;
-      const nextIndex = (currentIndex + 1) % yearSelect.options.length;
+  const yearSelect = document.getElementById('yearSelect');
+  if (!yearSelect) return;
 
-      yearSelect.selectedIndex = nextIndex;
-    }
-  });
+  const dir = e.shiftKey ? -1 : 1;
+  const currentIndex = yearSelect.selectedIndex;
+  const nextIndex =
+    (currentIndex + dir + yearSelect.options.length) % yearSelect.options.length;
+
+  yearSelect.selectedIndex = nextIndex;
+});
+
+// N – up with Shift, down without
+document.addEventListener('keydown', function (e) {
+  if (!e.altKey || e.key.toLowerCase() !== 'n') return;
+
+  const subjectSelect = document.getElementById('subjectSelect');
+  if (!subjectSelect) return;
+
+  const dir = e.shiftKey ? -1 : 1;
+  const currentIndex = subjectSelect.selectedIndex;
+  const nextIndex =
+    (currentIndex + dir + subjectSelect.options.length) % subjectSelect.options.length;
+
+  subjectSelect.selectedIndex = nextIndex;
+});
 
   // ALT + S – trigger search
   document.addEventListener('keydown', function (e) {
@@ -167,18 +183,17 @@
     }
 });
 
-
 document.addEventListener('keydown', function (e) {
-    if (e.altKey && e.key.toLowerCase() === 'n') {
-        const subjectSelect = document.getElementById('subjectSelect');
-        if (!subjectSelect) return;
-
-        const currentIndex = subjectSelect.selectedIndex;
-        const nextIndex = (currentIndex + 1) % subjectSelect.options.length;
-
-        subjectSelect.selectedIndex = nextIndex;
+    if (e.altKey && e.key.toLowerCase() === 'a') {
+      const checkbox = document.getElementById('tncCheckbox');
+      if (!checkbox) return;
+      
+      checkbox.checked = !checkbox.checked;
+      // Trigger the change event to show/hide protected content
+      checkbox.dispatchEvent(new Event('change'));
     }
-});
+  });
+
 </script>
 
 
