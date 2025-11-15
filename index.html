@@ -53,8 +53,21 @@
     document.getElementById('subjectSelect').value = subject;
     updateResults(subject);
   }
-</script>
 
+
+  document.addEventListener('keydown', function (e) {
+    if (e.altKey && e.key.toLowerCase() === 'x') {
+        const typeSelect = document.getElementById('typeSelect');
+        if (!typeSelect) return;
+
+        if (typeSelect.value === "Exam Papers") {
+            typeSelect.value = "Marking Schemes";
+        } else {
+            typeSelect.value = "Exam Papers";
+        }
+    }
+});
+</script>
 
 <body>
     <div class="header">
