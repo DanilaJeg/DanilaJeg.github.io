@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Material Archive - SEC</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<script>
+  // Renders the table rows and shows the Results section
+  function updateResults(subject) {
+    const tbody = document.querySelector('.results-table tbody');
+    tbody.innerHTML = '';
+
+    const papers = [
+      { name: `${subject} Paper One / Higher Level (EV)`, size: '318KB' },
+      { name: `${subject} Paper One / Higher Level (IV)`, size: '318KB' },
+      { name: `${subject} Paper Two / Higher Level (EV)`, size: '420KB' },
+      { name: `${subject} Paper Two / Higher Level (IV)`, size: '415KB' },
+      { name: `${subject} Foundation Level (IV)`, size: '318KB' }
+    ];
+
+    papers.forEach(paper => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${paper.name}</td>
+        <td><a href="#" class="download-link">Click Here [${paper.size}] ⬇</a></td>
+      `;
+      tbody.appendChild(row);
+    });
+
+    const results = document.getElementById('resultsSection');
+    results.style.display = 'block';
+    results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // Called by the main Search button
+  function showResults() {
+    const subject = document.getElementById('subjectSelect').value;
+    updateResults(subject);
+  }
+
+  // Called by the Quick Access buttons
+  function quickSearch(subject) {
+    document.getElementById('subjectSelect').value = subject;
+    updateResults(subject);
+  }
+</script>
+
+
+<body>
+    <div class="header">
+        <div class="logo">S</div>
+        <div class="header-text">
+            <h1>An Coimisiún um Scrúduithe Stáit</h1>
+            <p>State Examinations Commission</p>
+            <div class="subtitle">Cinnicht Thaighde faoi Rialachas an Aire um Oideachas & Eolaíocht</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="search-box">
+                <input type="text" placeholder="enter Circular no or keyword">
+            </div>
+            
+            <div class="nav-item">
+                <span class="nav-icon"></span>
+                <span>SEC Home</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon"></span>
+                <span>About Us</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon"></span>
+                <span>Statistics</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon"></span>
+                <span>Customer Charter</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon"></span>
+                <span>Schools</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon"></span>
+                <span>Candidates</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon"></span>
+                <span>Examination Information</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon"></span>
+                <span>RACE Review</span>
+            </div>
+            <div class="nav-item active">
+                <span class="nav-icon"></span>
+                <span>Examination Material Archive</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon"></span>
+                <span>Help</span>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <h1 class="page-title">Exam Material Archive</h1>
+
+            <div class="info-box">
+                <span>ℹ️</span>
+                <a href="#">How to use this section</a>
+            </div>
+
+            <div class="checkbox-section">
+                <div class="checkbox-label">
+                    <input type="checkbox">
+                    <div>
+                        I have read, understand and accept the <a href="#">Terms and Conditions</a> of use of the examination material provided by the State Examinations Commission.
+                    </div>
+                </div>
+                <div class="instruction">
+                    2. Make your choice from the options presented in the following drop-down options.
+                </div>
+            </div>
+
+            <div class="quick-access">
+                <h3>Quick Access</h3>
+                <div class="quick-access-tip">Tip: Use these shortcuts to quickly access commonly requested materials</div>
+                <div class="quick-buttons">
+                    <button class="quick-btn" onclick="quickSearch('Mathematics')">Latest LC Maths Papers →</button>
+                    <button class="quick-btn" onclick="quickSearch('English')">Latest LC English Papers →</button>
+                    <button class="quick-btn" onclick="quickSearch('Biology')">2024 LC Biology →</button>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Choose Type</label>
+                        <select>
+                            <option>Exam Papers</option>
+                            <option>Marking Schemes</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Choose Year</label>
+                        <select>
+                            <option>2025</option>
+                            <option>2024</option>
+                            <option>2023</option>
+                            <option>2022</option>
+                            <option>2021</option>
+                            <option>2020</option>
+                            <option>2019</option>
+                            <option>2018</option>
+                            <option>2017</option>
+                            <option>2016</option>
+                            <option>2015</option>
+                            <option>2014</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Choose Examination</label>
+                        <select>
+                            <option>Leaving Certificate</option>
+                            <option>Junior Certificate</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Choose Subject</label>
+                        <select id="subjectSelect">
+                            <option value="Accounting">Accounting</option>
+                            <option value="Biology">Biology</option>
+                            <option value="Chemistry">Chemistry</option>
+                            <option value="English">English</option>
+                            <option value="Irish">Irish</option>
+                            <option value="Mathematics">Mathematics</option>
+                            <option value="Physics">Physics</option>
+                            <option value="Technology">Technology</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="search-button" onclick="showResults()">Search Papers</button>
+            </div>
+
+            <div class="results-section" id="resultsSection" style="display: none;">
+    <h2 class="results-title">Available Downloads</h2>
+    
+    <table class="results-table">
+        <thead>
+            <tr>
+                <th>Paper Type / Level</th>
+                <th>Download</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Mathematics Paper One / Higher Level (EV)</td>
+                <td><a href="#" class="download-link">Click Here [318KB] ⬇</a></td>
+            </tr>
+            <tr>
+                <td>Mathematics Paper One / Higher Level (IV)</td>
+                <td><a href="#" class="download-link">Click Here [318KB] ⬇</a></td>
+            </tr>
+            <tr>
+                <td>Mathematics Paper Two / Higher Level (EV)</td>
+                <td><a href="#" class="download-link">Click Here [420KB] ⬇</a></td>
+            </tr>
+            <tr>
+                <td>Mathematics Paper Two / Higher Level (IV)</td>
+                <td><a href="#" class="download-link">Click Here [415KB] ⬇</a></td>
+            </tr>
+            <tr>
+                <td>Mathematics Foundation Level (IV)</td>
+                <td><a href="#" class="download-link">Click Here [318KB] ⬇</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+            <div class="recently-accessed">
+                <h3>Recently Accessed</h3>
+                
+                <div class="recent-item">
+                    <div class="recent-item-title">Mathematics • Leaving Certificate • 2022</div>
+                    <div class="recent-item-type">Exam Papers</div>
+                    <div class="recent-item-date">12/10/2025</div>
+                </div>
+
+                <div class="recent-item">
+                    <div class="recent-item-title">Mathematics • Leaving Certificate • 2022</div>
+                    <div class="recent-item-type">Marking Schemes</div>
+                    <div class="recent-item-date">12/10/2025</div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
