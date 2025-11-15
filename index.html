@@ -10,44 +10,53 @@
 <script>
   // Renders the table rows and shows the Results section
   function updateResults(subject) {
-    const tbody = document.querySelector('.results-table tbody');
-    tbody.innerHTML = '';
+  const tbody = document.querySelector('.results-table tbody');
+  tbody.innerHTML = '';
 
-    // Read "Exam Papers" or "Marking Schemes" from the dropdown
-    const typeSelect = document.getElementById('typeSelect');
-    const typeValue = typeSelect ? typeSelect.value : 'Exam Papers';
+  // Read "Exam Papers" or "Marking Schemes" from the dropdown
+  const typeSelect = document.getElementById('typeSelect');
+  const typeValue = typeSelect ? typeSelect.value : 'Exam Papers';
 
-    // Label that appears in the name: {subject} {Exam Paper/Marking Scheme} ...
-    const typeLabel = (typeValue === 'Marking Schemes') ? 'Marking Scheme' : 'Exam Paper';
+  // Label that appears in the name: {subject} {Exam Paper/Marking Scheme} ...
+  const typeLabel = (typeValue === 'Marking Schemes') ? 'Marking Scheme' : 'Exam Paper';
 
-    const yearSelect = document.getElementById('yearSelect');
-    const year = yearSelect ? yearSelect.value : '';
+  const yearSelect = document.getElementById('yearSelect');
+  const year = yearSelect ? yearSelect.value : '';
 
-    const papers = [
-      { name: `${year} ${subject} Paper One / Higher Level (EV) - ${typeLabel}`, size: '318KB' },
-      { name: `${year} ${subject} Paper One / Higher Level (IV) - ${typeLabel}`, size: '318KB' },
-      { name: `${year} ${subject} Paper Two / Higher Level (EV) - ${typeLabel}`, size: '420KB' },
-      { name: `${year} {subject} Paper Two / Higher Level (IV) - ${typeLabel}`, size: '415KB' },
-      { name: `${year} ${subject} Foundation Level (IV) - ${typeLabel}`, size: '318KB' }
-    ];
+  const papers = [
+    { name: `${year} ${subject} Paper One / Higher Level (EV) - ${typeLabel}`, size: '318KB' },
+    { name: `${year} ${subject} Paper One / Higher Level (IV) - ${typeLabel}`, size: '318KB' },
+    { name: `${year} ${subject} Paper Two / Higher Level (EV) - ${typeLabel}`, size: '420KB' },
+    { name: `${year} ${subject} Paper Two / Higher Level (IV) - ${typeLabel}`, size: '415KB' },
+    { name: `${year} ${subject} Foundation Level (IV) - ${typeLabel}`, size: '318KB' }
+  ];
 
-    papers.forEach(paper => {
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td>${paper.name}</td>
-        <td><a href="#" class="download-link">Click Here [${paper.size}] ⬇</a></td>
-      `;
-      tbody.appendChild(row);
-    });
+  papers.forEach(paper => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${paper.name}</td>
+      <td><a href="#" class="download-link">Click Here [${paper.size}] ⬇</a></td>
+    `;
+    tbody.appendChild(row);
+  });
 
+  const results = document.getElementById('resultsSection');
 
-    const results = document.getElementById('resultsSection');
-    results.classList.remove('show');     // fade out
-    void results.offsetWidth;              // force reflow (important)
+  // Make sure it's in the layout
+  results.style.display = 'block';
+
+  // First time: ensure base fade-in works
+  if (!results.classList.contains('show')) {
     results.classList.add('show');
-    results.style.display = 'block';
-    results.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
+
+  // Every search: retrigger the "refresh" animation
+  results.classList.remove('refresh');
+  void results.offsetWidth;       // force reflow so browser sees class removal
+  results.classList.add('refresh');
+
+  results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
 
   // Called by the main Search button
   function showResults() {
@@ -61,49 +70,54 @@
     updateResults(subject);
   }
 
-
+  // ALT + X — toggle Exam Papers / Marking Schemes
   document.addEventListener('keydown', function (e) {
     if (e.altKey && e.key.toLowerCase() === 'x') {
-        const typeSelect = document.getElementById('typeSelect');
-        if (!typeSelect) return;
+      const typeSelect = document.getElementById('typeSelect');
+      if (!typeSelect) return;
 
-        if (typeSelect.value === "Exam Papers") {
-            typeSelect.value = "Marking Schemes";
-        } else {
-            typeSelect.value = "Exam Papers";
-        }
+      if (typeSelect.value === "Exam Papers") {
+        typeSelect.value = "Marking Schemes";
+      } else {
+        typeSelect.value = "Exam Papers";
+      }
     }
-    });
+  });
 
-
-    document.addEventListener('keydown', function (e) {
+  // ALT + Y — cycle year
+  document.addEventListener('keydown', function (e) {
     if (e.altKey && e.key.toLowerCase() === 'y') {
-        const yearSelect = document.getElementById('yearSelect');
-        if (!yearSelect) return;
+      const yearSelect = document.getElementById('yearSelect');
+      if (!yearSelect) return;
 
-        const currentIndex = yearSelect.selectedIndex;
-        const nextIndex = (currentIndex + 1) % yearSelect.options.length;
+      const currentIndex = yearSelect.selectedIndex;
+      const nextIndex = (currentIndex + 1) % yearSelect.options.length;
 
-        yearSelect.selectedIndex = nextIndex;
+      yearSelect.selectedIndex = nextIndex;
     }
-});
+  });
 
-    document.addEventListener('keydown', function (e) {
-        if (e.altKey && e.key.toLowerCase() === 's') {
-            e.preventDefault(); // prevents browser "Save" dialog
-            showResults();      // runs your existing search function
-        }
-    });
+  // ALT + S — trigger search
+  document.addEventListener('keydown', function (e) {
+    if (e.altKey && e.key.toLowerCase() === 's') {
+      e.preventDefault(); // prevents browser "Save" dialog
+      showResults();      // runs your existing search function
+    }
+  });
 
-    document.addEventListener('DOMContentLoaded', function () {
+  // T&C checkbox — show/hide protected content
+  document.addEventListener('DOMContentLoaded', function () {
     const checkbox = document.getElementById('tncCheckbox');
     const content = document.getElementById('protectedContent');
 
+    if (!checkbox || !content) return;
+
     checkbox.addEventListener('change', function () {
-        content.style.display = checkbox.checked ? 'block' : 'none';
+      content.style.display = checkbox.checked ? 'block' : 'none';
     });
-});
+  });
 </script>
+
 
 <body>
     <div class="header">

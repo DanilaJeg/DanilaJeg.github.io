@@ -447,12 +447,22 @@ body {
   }
 }
 
-
-.results-refresh {
-    opacity: 0;
-    transition: opacity 0.35s ease;
+#resultsSection {
+  opacity: 0;
+  transition: opacity 1.5s ease;
 }
 
-.results-refresh.show {
-    opacity: 1;
+#resultsSection.show {
+  opacity: 1;
 }
+
+/* Refresh animation when search is pressed again */
+#resultsSection.refresh {
+  animation: resultsRefresh 1.5s ease;
+}
+
+@keyframes resultsRefresh {
+  0%   { opacity: 0; transform: scale(1); }
+  100% { opacity: 1;   transform: scale(1); }
+}
+
