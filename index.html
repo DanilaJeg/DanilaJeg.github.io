@@ -8,6 +8,14 @@
 </head>
 
 <script>
+    function randomSize() {
+        const kb = Math.floor(Math.random() * 500) + 150; // 150–650 KB
+        if (kb > 1000) {
+            return (kb / 1000).toFixed(1) + "MB";
+        }
+        return kb + "KB";
+    }
+
   // Renders the table rows and shows the Results section
   function updateResults(subject) {
     const tbody = document.querySelector('.results-table tbody');
@@ -24,11 +32,11 @@
     const year = yearSelect ? yearSelect.value : '';
 
     const papers = [
-      { name: `${year} ${subject} Paper One / Higher Level (EV) - ${typeLabel}`, size: '318KB' },
-      { name: `${year} ${subject} Paper One / Higher Level (IV) - ${typeLabel}`, size: '318KB' },
-      { name: `${year} ${subject} Paper Two / Higher Level (EV) - ${typeLabel}`, size: '420KB' },
-      { name: `${year} ${subject} Paper Two / Higher Level (IV) - ${typeLabel}`, size: '415KB' },
-      { name: `${year} ${subject} Foundation Level (IV) - ${typeLabel}`, size: '318KB' }
+      { name: `${year} ${subject} Paper One / Higher Level - ${typeLabel}`, size: randomSize() },
+      { name: `${year} ${subject} Paper Two / Higher Level - ${typeLabel}`, size: randomSize() },
+      { name: `${year} ${subject} Paper One / Ordinary Level - ${typeLabel}`, size: randomSize() },
+      { name: `${year} ${subject} Paper Two / Ordinary Level - ${typeLabel}`, size: randomSize() },
+      { name: `${year} ${subject} Foundation Level - ${typeLabel}`, size: randomSize() }
     ];
 
     papers.forEach(paper => {
