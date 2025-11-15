@@ -10,53 +10,53 @@
 <script>
   // Renders the table rows and shows the Results section
   function updateResults(subject) {
-  const tbody = document.querySelector('.results-table tbody');
-  tbody.innerHTML = '';
+    const tbody = document.querySelector('.results-table tbody');
+    tbody.innerHTML = '';
 
-  // Read "Exam Papers" or "Marking Schemes" from the dropdown
-  const typeSelect = document.getElementById('typeSelect');
-  const typeValue = typeSelect ? typeSelect.value : 'Exam Papers';
+    // Read "Exam Papers" or "Marking Schemes" from the dropdown
+    const typeSelect = document.getElementById('typeSelect');
+    const typeValue = typeSelect ? typeSelect.value : 'Exam Papers';
 
-  // Label that appears in the name: {subject} {Exam Paper/Marking Scheme} ...
-  const typeLabel = (typeValue === 'Marking Schemes') ? 'Marking Scheme' : 'Exam Paper';
+    // Label that appears in the name: {subject} {Exam Paper/Marking Scheme} ...
+    const typeLabel = (typeValue === 'Marking Schemes') ? 'Marking Scheme' : 'Exam Paper';
 
-  const yearSelect = document.getElementById('yearSelect');
-  const year = yearSelect ? yearSelect.value : '';
+    const yearSelect = document.getElementById('yearSelect');
+    const year = yearSelect ? yearSelect.value : '';
 
-  const papers = [
-    { name: `${year} ${subject} Paper One / Higher Level (EV) - ${typeLabel}`, size: '318KB' },
-    { name: `${year} ${subject} Paper One / Higher Level (IV) - ${typeLabel}`, size: '318KB' },
-    { name: `${year} ${subject} Paper Two / Higher Level (EV) - ${typeLabel}`, size: '420KB' },
-    { name: `${year} ${subject} Paper Two / Higher Level (IV) - ${typeLabel}`, size: '415KB' },
-    { name: `${year} ${subject} Foundation Level (IV) - ${typeLabel}`, size: '318KB' }
-  ];
+    const papers = [
+      { name: `${year} ${subject} Paper One / Higher Level (EV) - ${typeLabel}`, size: '318KB' },
+      { name: `${year} ${subject} Paper One / Higher Level (IV) - ${typeLabel}`, size: '318KB' },
+      { name: `${year} ${subject} Paper Two / Higher Level (EV) - ${typeLabel}`, size: '420KB' },
+      { name: `${year} ${subject} Paper Two / Higher Level (IV) - ${typeLabel}`, size: '415KB' },
+      { name: `${year} ${subject} Foundation Level (IV) - ${typeLabel}`, size: '318KB' }
+    ];
 
-  papers.forEach(paper => {
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td>${paper.name}</td>
-      <td><a href="#" class="download-link">Click Here [${paper.size}] ⬇</a></td>
-    `;
-    tbody.appendChild(row);
-  });
+    papers.forEach(paper => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${paper.name}</td>
+        <td><a href="#" class="download-link">Click Here [${paper.size}] ⬇</a></td>
+      `;
+      tbody.appendChild(row);
+    });
 
-  const results = document.getElementById('resultsSection');
+    const results = document.getElementById('resultsSection');
 
-  // Make sure it's in the layout
-  results.style.display = 'block';
+    // Make sure it's in the layout
+    results.style.display = 'block';
 
-  // First time: ensure base fade-in works
-  if (!results.classList.contains('show')) {
-    results.classList.add('show');
+    // First time: ensure base fade-in works
+    if (!results.classList.contains('show')) {
+      results.classList.add('show');
+    }
+
+    // Every search: retrigger the "refresh" animation
+    results.classList.remove('refresh');
+    void results.offsetWidth;       // force reflow so browser sees class removal
+    results.classList.add('refresh');
+
+    results.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
-
-  // Every search: retrigger the "refresh" animation
-  results.classList.remove('refresh');
-  void results.offsetWidth;       // force reflow so browser sees class removal
-  results.classList.add('refresh');
-
-  results.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
 
   // Called by the main Search button
   function showResults() {
@@ -66,27 +66,50 @@
 
   // Called by the Quick Access buttons
   function quickSearch(subject, year) {
-  const subjectSelect = document.getElementById('subjectSelect');
-  const yearSelect = document.getElementById('yearSelect');
-  const typeSelect = document.getElementById('typeSelect');
+    const subjectSelect = document.getElementById('subjectSelect');
+    const yearSelect = document.getElementById('yearSelect');
+    const typeSelect = document.getElementById('typeSelect');
 
-  if (subjectSelect) subjectSelect.value = subject;
+    if (subjectSelect) subjectSelect.value = subject;
 
-  // Set year (if provided and exists in dropdown)
-  if (yearSelect && year) {
-    const options = Array.from(yearSelect.options).map(o => o.value);
-    if (options.includes(year)) {
-      yearSelect.value = year;
+    // Set year (if provided and exists in dropdown)
+    if (yearSelect && year) {
+      const options = Array.from(yearSelect.options).map(o => o.value);
+      if (options.includes(year)) {
+        yearSelect.value = year;
+      }
     }
+
+    // Force type to "Exam Papers"
+    if (typeSelect) {
+      typeSelect.value = 'Exam Papers';
+    }
+
+    updateResults(subject);
   }
 
-  // Force type to "Exam Papers"
-  if (typeSelect) {
-    typeSelect.value = 'Exam Papers';
-  }
+  // Called by the Recently Accessed items
+  function recentSearch(subject, year, type) {
+    const subjectSelect = document.getElementById('subjectSelect');
+    const yearSelect = document.getElementById('yearSelect');
+    const typeSelect = document.getElementById('typeSelect');
 
-  updateResults(subject);
-}
+    if (subjectSelect) subjectSelect.value = subject;
+
+    if (yearSelect && year) {
+      const options = Array.from(yearSelect.options).map(o => o.value);
+      if (options.includes(year)) {
+        yearSelect.value = year;
+      }
+    }
+
+    if (typeSelect && type) {
+      // "Exam Papers" or "Marking Schemes"
+      typeSelect.value = type;
+    }
+
+    updateResults(subject);
+  }
 
   // ALT + X — toggle Exam Papers / Marking Schemes
   document.addEventListener('keydown', function (e) {
@@ -323,13 +346,17 @@
                 <h3>Recently Accessed</h3>
                 
                 <div class="recent-item">
-                    <div class="recent-item-title">Mathematics • Leaving Certificate • 2022</div>
+                    <div class="recent-item-title" onclick="recentSearch('Mathematics', '2022', 'Exam Papers')">
+                        Mathematics • Leaving Certificate • 2022
+                    </div>
                     <div class="recent-item-type">Exam Papers</div>
                     <div class="recent-item-date">12/10/2025</div>
                 </div>
 
                 <div class="recent-item">
-                    <div class="recent-item-title">Mathematics • Leaving Certificate • 2022</div>
+                    <div class="recent-item-title" onclick="recentSearch('Mathematics', '2022', 'Marking Schemes')">
+                        Mathematics • Leaving Certificate • 2022
+                    </div>
                     <div class="recent-item-type">Marking Schemes</div>
                     <div class="recent-item-date">12/10/2025</div>
                 </div>

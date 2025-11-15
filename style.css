@@ -466,3 +466,7 @@ body {
   100% { opacity: 1;   transform: scale(1); }
 }
 
+.recent-item-title {
+    color: #007bff;      /* blue */
+    cursor: pointer;
+}
