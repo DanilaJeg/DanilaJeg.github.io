@@ -66,6 +66,19 @@
             typeSelect.value = "Exam Papers";
         }
     }
+    });
+
+
+    document.addEventListener('keydown', function (e) {
+    if (e.altKey && e.key.toLowerCase() === 'y') {
+        const yearSelect = document.getElementById('yearSelect');
+        if (!yearSelect) return;
+
+        const currentIndex = yearSelect.selectedIndex;
+        const nextIndex = (currentIndex + 1) % yearSelect.options.length;
+
+        yearSelect.selectedIndex = nextIndex;
+    }
 });
 </script>
 
@@ -168,7 +181,7 @@
                     </div>
                     <div class="form-group">
                         <label>Choose Year</label>
-                        <select>
+                        <select id="yearSelect">
                             <option>2025</option>
                             <option>2024</option>
                             <option>2023</option>
