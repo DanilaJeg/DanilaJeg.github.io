@@ -80,6 +80,13 @@
         yearSelect.selectedIndex = nextIndex;
     }
 });
+
+    document.addEventListener('keydown', function (e) {
+        if (e.altKey && e.key.toLowerCase() === 's') {
+            e.preventDefault(); // prevents browser "Save" dialog
+            showResults();      // runs your existing search function
+        }
+    });
 </script>
 
 <body>
