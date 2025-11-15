@@ -157,6 +157,28 @@
       content.style.display = checkbox.checked ? 'block' : 'none';
     });
   });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.altKey && e.key.toLowerCase() === 'm') {
+        const subjectSelect = document.getElementById('subjectSelect');
+        if (!subjectSelect) return;
+
+        subjectSelect.value = "Mathematics";
+    }
+});
+
+
+document.addEventListener('keydown', function (e) {
+    if (e.altKey && e.key.toLowerCase() === 'n') {
+        const subjectSelect = document.getElementById('subjectSelect');
+        if (!subjectSelect) return;
+
+        const currentIndex = subjectSelect.selectedIndex;
+        const nextIndex = (currentIndex + 1) % subjectSelect.options.length;
+
+        subjectSelect.selectedIndex = nextIndex;
+    }
+});
 </script>
 
 
