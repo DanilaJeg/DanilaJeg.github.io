@@ -7,18 +7,22 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
+// Renders the table rows and shows the Results section
 <script>
-  // Renders the table rows and shows the Results section
-  function updateResults(subject) {
+function updateResults(subject) {
+
+    const type = document.getElementById('typeSelect').value; 
+    const typeLabel = (type === "Exam Papers") ? "Exam Paper" : "Marking Scheme";
+
     const tbody = document.querySelector('.results-table tbody');
     tbody.innerHTML = '';
 
     const papers = [
-      { name: `${subject} Paper One / Higher Level (EV)`, size: '318KB' },
-      { name: `${subject} Paper One / Higher Level (IV)`, size: '318KB' },
-      { name: `${subject} Paper Two / Higher Level (EV)`, size: '420KB' },
-      { name: `${subject} Paper Two / Higher Level (IV)`, size: '415KB' },
-      { name: `${subject} Foundation Level (IV)`, size: '318KB' }
+      { name: `${subject} ${typeLabel} Paper One / Higher Level (EV)`, size: '318KB' },
+      { name: `${subject} ${typeLabel} Paper One / Higher Level (IV)`, size: '318KB' },
+      { name: `${subject} ${typeLabel} Paper Two / Higher Level (EV)`, size: '420KB' },
+      { name: `${subject} ${typeLabel} Paper Two / Higher Level (IV)`, size: '415KB' },
+      { name: `${subject} ${typeLabel} Foundation Level (IV)`, size: '318KB' }
     ];
 
     papers.forEach(paper => {
@@ -33,19 +37,19 @@
     const results = document.getElementById('resultsSection');
     results.style.display = 'block';
     results.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
+}
 
-  // Called by the main Search button
-  function showResults() {
+// Called by the main Search button
+function showResults() {
     const subject = document.getElementById('subjectSelect').value;
     updateResults(subject);
-  }
+}
 
-  // Called by the Quick Access buttons
-  function quickSearch(subject) {
+// Called by the Quick Access buttons
+function quickSearch(subject) {
     document.getElementById('subjectSelect').value = subject;
     updateResults(subject);
-  }
+}
 </script>
 
 
@@ -141,7 +145,7 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>Choose Type</label>
-                        <select>
+                        <select id="typeSelect">
                             <option>Exam Papers</option>
                             <option>Marking Schemes</option>
                         </select>
