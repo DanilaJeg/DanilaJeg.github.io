@@ -111,7 +111,7 @@
     updateResults(subject);
   }
 
-  // ALT + X — toggle Exam Papers / Marking Schemes
+  // ALT + X – toggle Exam Papers / Marking Schemes
   document.addEventListener('keydown', function (e) {
     if (e.altKey && e.key.toLowerCase() === 'x') {
       const typeSelect = document.getElementById('typeSelect');
@@ -125,7 +125,7 @@
     }
   });
 
-  // ALT + Y — cycle year
+  // ALT + Y – cycle year
   document.addEventListener('keydown', function (e) {
     if (e.altKey && e.key.toLowerCase() === 'y') {
       const yearSelect = document.getElementById('yearSelect');
@@ -138,7 +138,7 @@
     }
   });
 
-  // ALT + S — trigger search
+  // ALT + S – trigger search
   document.addEventListener('keydown', function (e) {
     if (e.altKey && e.key.toLowerCase() === 's') {
       e.preventDefault(); // prevents browser "Save" dialog
@@ -146,7 +146,7 @@
     }
   });
 
-  // T&C checkbox — show/hide protected content
+  // T&C checkbox – show/hide protected content
   document.addEventListener('DOMContentLoaded', function () {
     const checkbox = document.getElementById('tncCheckbox');
     const content = document.getElementById('protectedContent');
@@ -240,6 +240,7 @@ document.addEventListener('keydown', function (e) {
             </div>
         </aside>
 
+        <div class="content-wrapper">
         <main class="main-content">
             <h1 class="page-title">Exam Material Archive</h1>
 
@@ -384,6 +385,7 @@ document.addEventListener('keydown', function (e) {
                 </div>
             </div>
         </main>
+        </div>
     </div>
 </div>
 </body>
