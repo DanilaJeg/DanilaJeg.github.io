@@ -140,7 +140,7 @@
 
   // ALT + S – trigger search
   document.addEventListener('keydown', function (e) {
-    if (e.altKey && e.key.toLowerCase() === 's') {
+    if (e.altKey && e.key === "Enter") {
       e.preventDefault(); // prevents browser "Save" dialog
       showResults();      // runs your existing search function
     }
