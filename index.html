@@ -65,10 +65,28 @@
   }
 
   // Called by the Quick Access buttons
-  function quickSearch(subject) {
-    document.getElementById('subjectSelect').value = subject;
-    updateResults(subject);
+  function quickSearch(subject, year) {
+  const subjectSelect = document.getElementById('subjectSelect');
+  const yearSelect = document.getElementById('yearSelect');
+  const typeSelect = document.getElementById('typeSelect');
+
+  if (subjectSelect) subjectSelect.value = subject;
+
+  // Set year (if provided and exists in dropdown)
+  if (yearSelect && year) {
+    const options = Array.from(yearSelect.options).map(o => o.value);
+    if (options.includes(year)) {
+      yearSelect.value = year;
+    }
   }
+
+  // Force type to "Exam Papers"
+  if (typeSelect) {
+    typeSelect.value = 'Exam Papers';
+  }
+
+  updateResults(subject);
+}
 
   // ALT + X — toggle Exam Papers / Marking Schemes
   document.addEventListener('keydown', function (e) {
@@ -207,9 +225,9 @@
                 <h3>Quick Access</h3>
                 <div class="quick-access-tip">Tip: Use these shortcuts to quickly access commonly requested materials</div>
                 <div class="quick-buttons">
-                    <button class="quick-btn" onclick="quickSearch('Mathematics')">Latest LC Maths Papers →</button>
-                    <button class="quick-btn" onclick="quickSearch('English')">Latest LC English Papers →</button>
-                    <button class="quick-btn" onclick="quickSearch('Biology')">2024 LC Biology →</button>
+                    <button class="quick-btn" onclick="quickSearch('Mathematics', '2025')">Latest LC Maths Papers →</button>
+                    <button class="quick-btn" onclick="quickSearch('English', '2025')">Latest LC English Papers →</button>
+                    <button class="quick-btn" onclick="quickSearch('Biology', '2024')">2024 LC Biology →</button>
                 </div>
             </div>
 
