@@ -446,3 +446,13 @@ body {
     gap: 16px;
   }
 }
+
+
+.results-refresh {
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+
+.results-refresh.show {
+    opacity: 1;
+}

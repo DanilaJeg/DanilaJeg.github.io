@@ -40,7 +40,11 @@
       tbody.appendChild(row);
     });
 
+
     const results = document.getElementById('resultsSection');
+    results.classList.remove('show');     // fade out
+    void results.offsetWidth;              // force reflow (important)
+    results.classList.add('show');
     results.style.display = 'block';
     results.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
