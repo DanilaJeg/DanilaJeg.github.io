@@ -20,12 +20,15 @@
     // Label that appears in the name: {subject} {Exam Paper/Marking Scheme} ...
     const typeLabel = (typeValue === 'Marking Schemes') ? 'Marking Scheme' : 'Exam Paper';
 
+    const yearSelect = document.getElementById('yearSelect');
+    const year = yearSelect ? yearSelect.value : '';
+
     const papers = [
-      { name: `${subject} Paper One / Higher Level (EV) - ${typeLabel}`, size: '318KB' },
-      { name: `${subject} Paper One / Higher Level (IV) - ${typeLabel}`, size: '318KB' },
-      { name: `${subject} Paper Two / Higher Level (EV) - ${typeLabel}`, size: '420KB' },
-      { name: `${subject} Paper Two / Higher Level (IV) - ${typeLabel}`, size: '415KB' },
-      { name: `${subject} Foundation Level (IV) - ${typeLabel}`, size: '318KB' }
+      { name: `${year} ${subject} Paper One / Higher Level (EV) - ${typeLabel}`, size: '318KB' },
+      { name: `${year} ${subject} Paper One / Higher Level (IV) - ${typeLabel}`, size: '318KB' },
+      { name: `${year} ${subject} Paper Two / Higher Level (EV) - ${typeLabel}`, size: '420KB' },
+      { name: `${year} {subject} Paper Two / Higher Level (IV) - ${typeLabel}`, size: '415KB' },
+      { name: `${year} ${subject} Foundation Level (IV) - ${typeLabel}`, size: '318KB' }
     ];
 
     papers.forEach(paper => {
