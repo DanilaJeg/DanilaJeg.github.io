@@ -242,6 +242,62 @@ document.addEventListener('keydown', function (e) {
   });
 
 
+  document.addEventListener('keydown', function (e) {
+  if (!e.altKey) return;
+
+  const num = parseInt(e.key, 10);
+  if (isNaN(num) || num < 1 || num > 5) return;
+
+  const rows = document.querySelectorAll('.results-table tbody tr');
+  const row = rows[num - 1];
+  if (!row) return;
+
+  const link = row.querySelector('.download-link');
+  if (!link) return;
+
+  e.preventDefault();
+  // Trigger the same behaviour as clicking the link
+  link.click();
+});
+
+// ALT + B – activate the Back button on the fake download page
+document.addEventListener('keydown', function (e) {
+  if (!e.altKey || e.key.toLowerCase() !== 'b') return;
+
+  const tempPage = document.getElementById('tempPage');
+  if (!tempPage || tempPage.style.display === 'none') return;
+
+  const backBtn = document.getElementById('tempBackButton');
+  if (!backBtn) return;
+
+  e.preventDefault();
+  backBtn.click();
+});
+
+
+document.addEventListener('keydown', function (e) {
+  if (!e.altKey || !e.shiftKey) return;
+
+  e.preventDefault();
+
+  switch (e.code) {
+    case 'Digit1':
+      // Latest LC Maths Papers
+      quickSearch('Mathematics', '2025');
+      break;
+    case 'Digit2':
+      // Latest LC English Papers
+      quickSearch('English', '2025');
+      break;
+    case 'Digit3':
+      // 2024 LC Biology
+      quickSearch('Biology', '2024');
+      break;
+    default:
+      // Not 1–3, ignore
+      return;
+  }
+});
 </script>
 
 
@@ -405,26 +461,6 @@ document.addEventListener('keydown', function (e) {
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Mathematics Paper One / Higher Level (EV)</td>
-                <td><a href="#" class="download-link">Click Here [318KB] ⬇</a></td>
-            </tr>
-            <tr>
-                <td>Mathematics Paper One / Higher Level (IV)</td>
-                <td><a href="#" class="download-link">Click Here [318KB] ⬇</a></td>
-            </tr>
-            <tr>
-                <td>Mathematics Paper Two / Higher Level (EV)</td>
-                <td><a href="#" class="download-link">Click Here [420KB] ⬇</a></td>
-            </tr>
-            <tr>
-                <td>Mathematics Paper Two / Higher Level (IV)</td>
-                <td><a href="#" class="download-link">Click Here [415KB] ⬇</a></td>
-            </tr>
-            <tr>
-                <td>Mathematics Foundation Level (IV)</td>
-                <td><a href="#" class="download-link">Click Here [318KB] ⬇</a></td>
-            </tr>
         </tbody>
     </table>
 </div>
