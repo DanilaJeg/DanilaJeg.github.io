@@ -478,3 +478,53 @@ body {
   0%   { opacity: 0; transform: scale(1); }
   100% { opacity: 1;   transform: scale(1); }
 }
+
+
+/* ====== Temporary download page ====== */
+.temp-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  background: #ffffff;
+  padding: 40px;
+  overflow-y: auto;
+
+  z-index: 9999; /* on top of everything */
+  display: none; /* hidden by default */
+}
+
+.temp-page-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.temp-page p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.temp-download-button {
+  display: inline-block;
+  padding: 14px 20px;
+  border-radius: 6px;
+  background: #2196F3;
+  color: #fff;
+  font-size: 16px;
+  text-decoration: none;
+  margin-right: 12px;
+}
+
+.temp-back-button {
+  display: inline-block;
+  padding: 12px 18px;
+  background: #eee;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}

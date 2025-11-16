@@ -202,6 +202,46 @@ document.addEventListener('keydown', function (e) {
     }
   });
 
+
+    // Fake "download page" behaviour
+  document.addEventListener('DOMContentLoaded', function () {
+    const resultsSection   = document.getElementById('resultsSection');
+    const recentlyAccessed = document.querySelector('.recently-accessed');
+    const tempPage         = document.getElementById('tempPage');
+    const tempTitle        = document.getElementById('tempPageTitle');
+    const backBtn          = document.getElementById('tempBackButton');
+
+    // Intercept clicks on any .download-link
+    document.addEventListener('click', function (e) {
+      const link = e.target.closest('.download-link');
+      if (!link) return;
+
+      e.preventDefault(); // stop the "#" navigation
+
+      const row       = link.closest('tr');
+      const titleCell = row ? row.querySelector('td:first-child') : null;
+      const titleText = titleCell ? titleCell.textContent.trim() : 'Selected Paper';
+
+      // Set the fake page title to match the item
+      tempTitle.textContent = titleText;
+
+      // Hide results + recently accessed, show the fake page
+      if (resultsSection)   resultsSection.style.display   = 'none';
+      if (recentlyAccessed) recentlyAccessed.style.display = 'none';
+      if (tempPage)         tempPage.style.display         = 'block';
+    });
+
+    // Back button: return to the normal view
+    if (backBtn) {
+      backBtn.addEventListener('click', function () {
+        if (tempPage)         tempPage.style.display         = 'none';
+        if (resultsSection)   resultsSection.style.display   = 'block';
+        if (recentlyAccessed) recentlyAccessed.style.display = 'block';
+      });
+    }
+  });
+
+
 </script>
 
 
@@ -388,6 +428,23 @@ document.addEventListener('keydown', function (e) {
         </tbody>
     </table>
 </div>
+
+
+<div id="tempPage" class="temp-page" style="display:none;">
+    <h2 id="tempPageTitle" class="temp-page-title"></h2>
+
+    <p>
+        This is a placeholder screen for the selected paper.
+        In a real system this page would show more information and the actual file download.
+    </p>
+    <button type="button" id="tempBackButton" class="temp-back-button">
+        ← Back to search results
+    </button>
+</div>
+
+
+
+
             <div class="recently-accessed">
                 <h3>Recently Accessed</h3>
                 
