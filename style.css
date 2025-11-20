@@ -351,10 +351,6 @@ body {
   color: #333;
 }
 
-.results-table tbody tr:hover {
-  background-color: #f9f9f9;
-}
-
 .download-link {
   color: #2196F3;
   text-decoration: none;
