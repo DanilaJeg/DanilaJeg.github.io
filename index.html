@@ -315,6 +315,61 @@ document.addEventListener('keydown', function (e) {
     recentSearch('Mathematics', '2022', 'Marking Schemes');
   }
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const toggle = document.getElementById('shortcutsToggle');
+    const menu   = document.getElementById('shortcutsMenu');
+
+    if (!toggle || !menu) return;
+
+    function openMenu() {
+      menu.classList.add('open');
+      menu.setAttribute('aria-hidden', 'false');
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeMenu() {
+      menu.classList.remove('open');
+      menu.setAttribute('aria-hidden', 'true');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+
+    function toggleMenu() {
+      if (menu.classList.contains('open')) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    }
+
+    toggle.addEventListener('click', function (e) {
+      e.stopPropagation();
+      toggleMenu();
+    });
+
+    // Click outside to close
+    document.addEventListener('click', function (e) {
+      if (!menu.classList.contains('open')) return;
+      if (menu.contains(e.target) || e.target === toggle) return;
+      closeMenu();
+    });
+
+    // Esc to close
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && menu.classList.contains('open')) {
+        e.preventDefault();
+        closeMenu();
+      }
+    });
+
+    // Optional: Alt + / to open shortcuts menu quickly
+    document.addEventListener('keydown', function (e) {
+      if (e.altKey && e.key === '/') {
+        e.preventDefault();
+        toggleMenu();
+      }
+    });
+  });
 </script>
 
 
@@ -326,7 +381,95 @@ document.addEventListener('keydown', function (e) {
             <p>State Examinations Commission</p>
             <div class="subtitle">Cinnicht Thaighde faoi Rialachas an Aire um Oideachas & Eolaíocht</div>
         </div>
+        <button
+          class="shortcuts-button"
+          id="shortcutsToggle"
+          type="button"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Shortcuts ⌨
+        </button>
     </div>
+
+    <div id="shortcutsMenu" class="shortcuts-menu" role="dialog" aria-modal="true" aria-hidden="true">
+              <div class="shortcuts-menu-header">
+                <div>Keyboard Shortcuts</div>
+                <span>Esc to close</span>
+              </div>
+
+              <div class="shortcuts-section-title">Search controls</div>
+              <ul class="shortcuts-list">
+                <li>
+                  <span class="shortcuts-label">Toggle Exam Papers / Marking Schemes</span>
+                  <span class="shortcuts-keys">Alt + T</span>
+                </li>
+                <li>
+                  <span class="shortcuts-label">Change year (down / up)</span>
+                  <span class="shortcuts-keys">Alt + Y / Shift + Alt + Y</span>
+                </li>
+                <li>
+                  <span class="shortcuts-label">Change subject (down / up)</span>
+                  <span class="shortcuts-keys">Alt + N / Shift + Alt + N</span>
+                </li>
+                <li>
+                  <span class="shortcuts-label">Set subject to Mathematics</span>
+                  <span class="shortcuts-keys">Alt + M</span>
+                </li>
+                <li>
+                  <span class="shortcuts-label">Run search</span>
+                  <span class="shortcuts-keys">Alt + Enter</span>
+                </li>
+              </ul>
+
+              <div class="shortcuts-section-title">Quick access</div>
+              <ul class="shortcuts-list">
+                <li>
+                  <span class="shortcuts-label">Latest LC Maths</span>
+                  <span class="shortcuts-keys">Shift + Alt + 1</span>
+                </li>
+                <li>
+                  <span class="shortcuts-label">Latest LC English</span>
+                  <span class="shortcuts-keys">Shift + Alt + 2</span>
+                </li>
+                <li>
+                  <span class="shortcuts-label">2024 LC Biology</span>
+                  <span class="shortcuts-keys">Shift + Alt + 3</span>
+                </li>
+              </ul>
+
+              <div class="shortcuts-section-title">Downloads & navigation</div>
+              <ul class="shortcuts-list">
+                <li>
+                  <span class="shortcuts-label">Open paper 1–5 in results</span>
+                  <span class="shortcuts-keys">Alt + 1–5</span>
+                </li>
+                <li>
+                  <span class="shortcuts-label">Back from download page</span>
+                  <span class="shortcuts-keys">Alt + B</span>
+                </li>
+              </ul>
+
+              <div class="shortcuts-section-title">Recently Accessed</div>
+              <ul class="shortcuts-list">
+                <li>
+                  <span class="shortcuts-label">Mathematics 2022 Exam Papers</span>
+                  <span class="shortcuts-keys">Shift + 1 (or !)</span>
+                </li>
+                <li>
+                  <span class="shortcuts-label">Mathematics 2022 Marking Schemes</span>
+                  <span class="shortcuts-keys">Shift + 2 (or ")</span>
+                </li>
+              </ul>
+
+              <div class="shortcuts-section-title">Other</div>
+              <ul class="shortcuts-list">
+                <li>
+                  <span class="shortcuts-label">Accept / remove T&amp;C checkbox</span>
+                  <span class="shortcuts-keys">Alt + A</span>
+                </li>
+              </ul>
+            </div>
 
     <div class="container">
         <aside class="sidebar">
